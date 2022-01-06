@@ -21,3 +21,7 @@ set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
 # Add Glfw lib in my project
 add_subdirectory(external/glfw)
 target_link_libraries(${PROJECT_NAME} glfw)
+
+# Add Glad lib in my project
+add_subdirectory(external/glad)
+target_link_libraries(${PROJECT_NAME} glad)

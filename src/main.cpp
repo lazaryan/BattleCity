@@ -1,5 +1,4 @@
-﻿// BattleCity.cpp: определяет точку входа для приложения.
-//
+﻿#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include <iostream>
@@ -23,11 +22,21 @@ int main(void)
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
 
+    if (!gladLoadGL())
+    {
+        std::cout << "ERROR Load glad" << std::endl;
+        return -1;
+    }
+
+    std::cout << "OpenGL version: " << GLVersion.major << "." << GLVersion.minor << std::endl;
+
+    glClearColor(0, 1, 0, 1);
+
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
-        // glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT); // color creating with glClearColor(0, 1, 0, 1)
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
