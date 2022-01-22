@@ -8,6 +8,8 @@ add_executable(${PROJECT_NAME}
     "src/main.cpp"
     "src/Renderer/ShaderPropgram.cpp"
     "src/Renderer/ShaderPropgram.hpp"
+    "src/Resources/ResourceManager.cpp"
+    "src/Resources/ResourceManager.hpp"
 )
 
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
@@ -27,3 +29,9 @@ target_link_libraries(${PROJECT_NAME} glfw)
 # Add Glad lib in my project
 add_subdirectory(external/glad)
 target_link_libraries(${PROJECT_NAME} glad)
+
+set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/)
+
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+					COMMAND ${CMAKE_COMMAND} -E copy_directory
+					${CMAKE_SOURCE_DIR}/assets $<TARGET_FILE_DIR:${PROJECT_NAME}>/assets)
