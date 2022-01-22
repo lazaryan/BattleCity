@@ -6,7 +6,7 @@ namespace Renderer {
         GLuint idVertexShader;
         GLuint idFragmentShader;
         
-        //создаем vertex и fragment шейдеры и компилируем их
+        // create vertex и fragment шейдеры and compile
         if (!this->compileShader(vertexShader, GL_VERTEX_SHADER, idVertexShader))
         {
             std::cerr << "ERROR::SHADER_COMPILED => Vertex Shader" << std::endl;
@@ -18,7 +18,7 @@ namespace Renderer {
             return;
         }
 
-        // теперь эти шейдеры линкуем в программу, т.е. последовательное выполнение 2-х этих шейдеров
+        // linked shaders in openGL program
         if (!this->createPropgram(idVertexShader, idFragmentShader, this->_propgramID))
         {
             return;
@@ -64,7 +64,6 @@ namespace Renderer {
         glShaderSource(shaderID, 1, &sourceCode, nullptr);
         glCompileShader(shaderID);
 
-        // проверяем, что все скопилировалось без ошибок
         GLint isSuccess;
         glGetShaderiv(shaderID, GL_COMPILE_STATUS, &isSuccess);
         if (!isSuccess)
@@ -90,7 +89,7 @@ namespace Renderer {
 
         glLinkProgram(propgramID);
 
-        // их уже прилинковали в программу и шейдеры, как отдельные сущности уже не нужны
+        // they have already been linked into the program and shaders, as separate entities are no longer needed 
         glDeleteShader(shaderVertexID);
         glDeleteShader(shaderFragmentID);
 

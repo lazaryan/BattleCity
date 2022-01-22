@@ -8,8 +8,8 @@
 
 namespace Renderer {
 	/*
-	* Класс для рабоаты с шейдерами
-	* На воход принимает 2 шйдера и создает дл яних шейдерную программу
+	* Class for working with shaders
+	* Takes 2 shaders (vertex and fragment) as input and creates a shader program for them 
 	*/
 	class ShaderPropgram {
 	public:
@@ -18,14 +18,14 @@ namespace Renderer {
 
 		void use() const;
 
-		// удаляем возможность создания класса без парамеров
+		// remove the ability to create a class without parameters 
 		ShaderPropgram() = delete;
-		// нельзя создавать класс из класса, т.к. у них будет одинаковый _propgramID
+		// you cannot create a class from a class, because they will have the same _propgramID 
 		ShaderPropgram(ShaderPropgram&) = delete;
-		// Также по этой прчине удаляем оператор присваения
+		// Also for this reason, we remove the assignment operator 
 		ShaderPropgram& operator=(const ShaderPropgram&) = delete;
 
-		//а теперь их сами реализуем
+		// and now we implement them ourselves 
 		ShaderPropgram(ShaderPropgram&& shaderProgram) noexcept;
 		ShaderPropgram& operator=(const ShaderPropgram&& shaderProgram) noexcept;
 

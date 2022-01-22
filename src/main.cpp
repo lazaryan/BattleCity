@@ -5,21 +5,20 @@
 
 #include "Renderer/ShaderPropgram.hpp"
 
-// вершины треуголника, который будет рисоваться (каждая вершина от -1 до 1)
+// vertices of the triangle to be drawn (each vertex from -1 to 1) 
 GLfloat points[] = {
     0.0f, 0.5f, 0.0f,
     0.5f, -0.5f, 0.0f,
     -0.5f, -0.5f, 0.0f,
 };
 
-// цвета этих вершин (от 0.0 до 1.0)
+// the colors of these vertices (from 0.0 to 1.0) 
 GLfloat colors[] = {
     1.0f, 0.0f, 0.0f,
     0.0f, 1.0f, 1.0f,
     0.0f, 0.0f, 1.0f,
 };
 
-// шейдер для отрисовки вершины
 const char* vertexShader =
 "#version 460\n"
 "layout(location = 0) in vec3 vertex_position;"
@@ -30,7 +29,6 @@ const char* vertexShader =
 "   gl_Position = vec4(vertex_position, 1.0);"
 "}";
 
-// а это шейдер для отрисовки каждого пикселя внутри треугольника
 const char* fragmentShader =
 "#version 460\n"
 "in vec3 color;"
@@ -107,12 +105,11 @@ int main(void)
 
     regiserCallbacks(pWindow);
 
-    //создаем vertex шейдер и компилируем его
     const std::string strVertexShader(vertexShader);
     const std::string strFragmentShader(fragmentShader);
 
     // Renderer::ShaderPropgram program = Renderer::ShaderPropgram(vertexShader, fragmentShader);
-    // короткая запись
+    // shortcat
     Renderer::ShaderPropgram shaderProgram(vertexShader, fragmentShader);
     if (!shaderProgram.isCompiled())
     {
@@ -120,33 +117,13 @@ int main(void)
         return -1;
     }
 
-    /* GLuint idVertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(idVertexShader, 1, &vertexShader, nullptr);
-    glCompileShader(idVertexShader);
-
-    //создаем ragment шейдер и компилируем его
-    GLuint idFragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(idFragmentShader, 1, &fragmentShader, nullptr);
-    glCompileShader(idFragmentShader);
-
-    // теперь эти шейдеры линкуем в программу, т.е. последовательное выполнение 2- этих шейдеров
-    GLuint idShaderProgram = glCreateProgram();
-    glAttachShader(idShaderProgram, idVertexShader);
-    glAttachShader(idShaderProgram, idFragmentShader);
-    glLinkProgram(idShaderProgram);
-
-    // после того, как их слинковали, можно сами щейдеры удалять
-    glDeleteShader(idVertexShader);
-    glDeleteShader(idFragmentShader);
-    */
-
-    // создаем буфер для всех вершин
+    // create buffer for vertex
     GLuint pointsVertexBoooferObject = 0;
     glGenBuffers(1, &pointsVertexBoooferObject);
     glBindBuffer(GL_ARRAY_BUFFER, pointsVertexBoooferObject);
     glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
 
-    // создаем буфер для всех цветов вершин
+    // create buffer for fragment colors
     GLuint colorsVertexBoooferObject = 0;
     glGenBuffers(1, &colorsVertexBoooferObject);
     glBindBuffer(GL_ARRAY_BUFFER, colorsVertexBoooferObject);
