@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#include "Renderer/ShaderPropgram.hpp"
+
 // вершины треуголника, который будет рисоваться (каждая вершина от -1 до 1)
 GLfloat points[] = {
     0.0f, 0.5f, 0.0f,
@@ -106,7 +108,19 @@ int main(void)
     regiserCallbacks(pWindow);
 
     //создаем vertex шейдер и компилируем его
-    GLuint idVertexShader = glCreateShader(GL_VERTEX_SHADER);
+    const std::string strVertexShader(vertexShader);
+    const std::string strFragmentShader(fragmentShader);
+
+    // Renderer::ShaderPropgram program = Renderer::ShaderPropgram(vertexShader, fragmentShader);
+    // короткая запись
+    Renderer::ShaderPropgram shaderProgram(vertexShader, fragmentShader);
+    if (!shaderProgram.isCompiled())
+    {
+        std::cerr << "ERROR:PROGRAM_CREATOR => Can`t create shader program" << std::endl;
+        return -1;
+    }
+
+    /* GLuint idVertexShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(idVertexShader, 1, &vertexShader, nullptr);
     glCompileShader(idVertexShader);
 
@@ -124,6 +138,7 @@ int main(void)
     // после того, как их слинковали, можно сами щейдеры удалять
     glDeleteShader(idVertexShader);
     glDeleteShader(idFragmentShader);
+    */
 
     // создаем буфер для всех вершин
     GLuint pointsVertexBoooferObject = 0;
@@ -159,7 +174,7 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT); // color creating with glClearColor(0, 1, 0, 1)
 
         // теперь в цикле используем нашу шейдер программу, говорим какой буфер используем и рисуем все
-        glUseProgram(idShaderProgram);
+        shaderProgram.use();
         glBindVertexArray(vertexArrayObject);
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
