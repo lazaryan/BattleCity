@@ -91,6 +91,8 @@ int main(int args, char** argv)
     {
         Resources::ResourceManager resourceManager(argv[0]);
 
+        resourceManager.loadTexture("Default", "assets/textures/map_16x16.png");
+
         auto pDefaultShaderProgram = resourceManager.loadShaderProgram("defaultShaderProgram", "assets/shaders/vertex.txt", "assets/shaders/fragment.txt");
         if (!pDefaultShaderProgram)
         {

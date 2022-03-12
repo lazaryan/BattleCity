@@ -7,6 +7,7 @@
 
 namespace Renderer {
 	class ShaderPropgram;
+	class Texture2D;
 }
 
 namespace Resources {
@@ -28,12 +29,17 @@ namespace Resources {
 			const std::string& pathToFragmentShader
 		);
 		std::shared_ptr<Renderer::ShaderPropgram> getShaderProgram(const std::string& shaderName);
+
+		std::shared_ptr<Renderer::Texture2D> loadTexture(const std::string& textureName, const std::string& texturePath);
+		std::shared_ptr<Renderer::Texture2D> getTexture(const std::string& textureName);
 	private:
 		typedef std::map<const std::string, std::shared_ptr<Renderer::ShaderPropgram>> t_shaderProgramsMap;
+		typedef std::map<const std::string, std::shared_ptr<Renderer::Texture2D>> t_texturesMap;
 
 		std::string getFileData(const std::string& relativePathToFile) const;
 
 		t_shaderProgramsMap _shaderPropgrams;
+		t_texturesMap _textures;
 		std::string _ecacutablePath;
 	};
 }
